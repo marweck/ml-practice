@@ -1,4 +1,4 @@
-#Machine Learning Practice
+# Machine Learning Practice
 
 This is a small repo for my studies in Machine Learning.
 
