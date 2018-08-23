@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn import linear_model, tree
+from sklearn.svm import SVR
 import matplotlib.pyplot as plt
 
 # read data
@@ -14,15 +15,25 @@ regressor.fit(x_values, y_values)
 regressor2 = tree.DecisionTreeRegressor()
 regressor2.fit(x_values, y_values)
 
-plt.scatter(x_values, y_values)
-plt.plot(x_values, regressor.predict(x_values), regressor2.predict(x_values))
+regressor3 = SVR(kernel='linear', C=1e3)
+regressor3.fit(x_values, np.ravel(y_values, order='C'))
+
+plt.scatter(x_values, y_values, color='black', label='Data')
+plt.plot(x_values, regressor.predict(x_values), color='red', label='Linear')
+plt.plot(x_values, regressor2.predict(x_values), color='green', label='Tree')
+plt.plot(x_values, regressor3.predict(x_values), color='blue', label='SVC')
+plt.xlabel('Brain')
+plt.ylabel('Body')
+plt.legend()
 plt.show()
 
 
 class LogisticRegression:
 
     """
-    This is class is just a simple implementation of 2-class classifier
+    This is class is just a simple implementation of 2-class Logistic Regression
+    classifier that was taken from Siraj YouTube vide:
+    https://www.youtube.com/watch?v=H6ii7NFdDeg
     """
 
     def __init__(self, lr=0.01, num_iterations=100000, fit_intercept=True, verbose=False):
